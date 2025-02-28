@@ -5,6 +5,10 @@ export class Graph<T> {
     this.adjacencyList = new Map<T, T[]>();
   }
 
+  public getAdjacencyList() {
+    return this.adjacencyList;
+  }
+
   public addVertex(vertex: T) {
     if (!this.adjacencyList.has(vertex)) {
       this.adjacencyList.set(vertex, []);
@@ -43,15 +47,17 @@ export class Graph<T> {
   }
 
   public removeEdge(vertex1: T, vertex2: T) {
-    this.adjacencyList.set(
-      vertex1,
-      this.adjacencyList.get(vertex1)!.filter((v) => v !== vertex2)
-    );
+    if (this.adjacencyList.has(vertex1) && this.adjacencyList.has(vertex2)) {
+      this.adjacencyList.set(
+        vertex1,
+        this.adjacencyList.get(vertex1)!.filter((v) => v !== vertex2)
+      );
 
-    this.adjacencyList.set(
-      vertex2,
-      this.adjacencyList.get(vertex2)!.filter((v) => v !== vertex1)
-    );
+      this.adjacencyList.set(
+        vertex2,
+        this.adjacencyList.get(vertex2)!.filter((v) => v !== vertex1)
+      );
+    }
   }
 
   public printGraph() {
